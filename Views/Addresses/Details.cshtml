@@ -1,0 +1,27 @@
+@model DogShelterMvc.Models.Address
+
+@{
+    ViewData["Title"] = "Detail adresy";
+}
+
+<h1>Detail adresy</h1>
+
+<div>
+    <h4>@Model.ToString()</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Ulice</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Street)</dd>
+        <dt class="col-sm-2">Číslo popisné</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Number)</dd>
+        <dt class="col-sm-2">Město</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.City)</dd>
+        <dt class="col-sm-2">PSČ</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Psc)</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Upravit</a>
+    <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+</div>
+

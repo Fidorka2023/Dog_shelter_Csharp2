@@ -1,0 +1,26 @@
+@model DogShelterMvc.Models.Address
+
+@{
+    ViewData["Title"] = "Smazat adresu";
+}
+
+<h1>Smazat adresu</h1>
+
+<h3>Jste si jisti, že chcete smazat tuto adresu?</h3>
+<div>
+    <h4>@Model.ToString()</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Ulice</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Street)</dd>
+        <dt class="col-sm-2">Město</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.City)</dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Smazat" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+    </form>
+</div>
+

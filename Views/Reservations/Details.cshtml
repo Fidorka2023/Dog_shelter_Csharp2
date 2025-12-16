@@ -1,0 +1,27 @@
+@model DogShelterMvc.Models.Reservation
+
+@{
+    ViewData["Title"] = "Detail rezervace";
+}
+
+<h1>Detail rezervace</h1>
+
+<div>
+    <h4>Rezervace #@Model.Id</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ID</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Id)</dd>
+        <dt class="col-sm-2">Datum přijetí</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.DateOfReceipt)</dd>
+        <dt class="col-sm-2">Datum předání</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.DateOfTransfer)</dd>
+        <dt class="col-sm-2">Pes</dt>
+        <dd class="col-sm-10">@(Model.Pes?.Name ?? "Není přiřazen")</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Upravit</a>
+    <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+</div>
+

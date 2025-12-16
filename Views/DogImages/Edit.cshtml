@@ -1,0 +1,44 @@
+@model DogShelterMvc.Models.DogImage
+
+@{
+    ViewData["Title"] = "Upravit obrázek";
+}
+
+<h1>Upravit obrázek</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FileName" class="control-label">Název souboru</label>
+                <input type="text" name="fileName" class="form-control" value="@Model.FileName" />
+            </div>
+            <div class="form-group">
+                <label for="file" class="control-label">Nový soubor obrázku (volitelné)</label>
+                <input type="file" name="file" class="form-control" accept="image/*" />
+                <small class="form-text text-muted">Pokud není zadán, obrázek zůstane beze změny</small>
+            </div>
+            @if (Model.ImageData != null)
+            {
+                <div class="form-group">
+                    <label class="control-label">Aktuální obrázek</label>
+                    <div>
+                        <img src="@Url.Action("Image", "DogImages", new { id = Model.Id })" alt="@Model.FileName" style="max-width: 200px; max-height: 200px;" />
+                    </div>
+                </div>
+            }
+            <div class="form-group mt-3">
+                <input type="submit" value="Uložit" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

@@ -1,0 +1,28 @@
+@model DogShelterMvc.Models.Dog
+
+@{
+    ViewData["Title"] = "Smazat psa";
+}
+
+<h1>Smazat psa</h1>
+
+<h3>Jste si jisti, že chcete smazat tohoto psa?</h3>
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Jméno</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Name)</dd>
+        <dt class="col-sm-2">Věk</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Age)</dd>
+        <dt class="col-sm-2">Útulek</dt>
+        <dd class="col-sm-10">@(Model.Utulek?.Name ?? "Není přiřazen")</dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Smazat" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+    </form>
+</div>
+

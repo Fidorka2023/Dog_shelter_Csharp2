@@ -1,0 +1,42 @@
+@model DogShelterMvc.Models.Reservation
+
+@{
+    ViewData["Title"] = "Upravit rezervaci";
+}
+
+<h1>Upravit rezervaci</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="DateOfReceipt" class="control-label">Datum přijetí</label>
+                <input asp-for="DateOfReceipt" class="form-control" type="datetime-local" />
+                <span asp-validation-for="DateOfReceipt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfTransfer" class="control-label">Datum předání</label>
+                <input asp-for="DateOfTransfer" class="form-control" type="datetime-local" />
+                <span asp-validation-for="DateOfTransfer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DogId" class="control-label">Pes</label>
+                <select asp-for="DogId" class="form-control" asp-items="ViewBag.DogId">
+                    <option value="">-- Vyberte psa --</option>
+                </select>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Uložit" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

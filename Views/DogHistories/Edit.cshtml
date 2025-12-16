@@ -1,0 +1,47 @@
+@model DogShelterMvc.Models.DogHistory
+
+@{
+    ViewData["Title"] = "Upravit záznam historie";
+}
+
+<h1>Upravit záznam historie</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="DateOfEvent" class="control-label">Datum události</label>
+                <input asp-for="DateOfEvent" class="form-control" type="datetime-local" />
+                <span asp-validation-for="DateOfEvent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventDescription" class="control-label">Popis události</label>
+                <textarea asp-for="EventDescription" class="form-control"></textarea>
+                <span asp-validation-for="EventDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DogId" class="control-label">Pes</label>
+                <select asp-for="DogId" class="form-control" asp-items="ViewBag.DogId">
+                    <option value="">-- Vyberte psa --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Typ" class="control-label">Typ</label>
+                <input asp-for="Typ" class="form-control" />
+                <span asp-validation-for="Typ" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Uložit" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

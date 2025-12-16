@@ -1,0 +1,25 @@
+@model DogShelterMvc.Models.Pavilion
+
+@{
+    ViewData["Title"] = "Detail pavilonu";
+}
+
+<h1>Detail pavilonu</h1>
+
+<div>
+    <h4>@Model.PavName</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ID</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Id)</dd>
+        <dt class="col-sm-2">Název pavilonu</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.PavName)</dd>
+        <dt class="col-sm-2">Kapacita</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.CapacityPav)</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Upravit</a>
+    <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+</div>
+

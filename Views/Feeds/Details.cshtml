@@ -1,0 +1,27 @@
+@model DogShelterMvc.Models.Feed
+
+@{
+    ViewData["Title"] = "Detail krmiva";
+}
+
+<h1>Detail krmiva</h1>
+
+<div>
+    <h4>@Model.Nazev</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ID</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Id)</dd>
+        <dt class="col-sm-2">Název</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Nazev)</dd>
+        <dt class="col-sm-2">Počet</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Pocet)</dd>
+        <dt class="col-sm-2">Sklad</dt>
+        <dd class="col-sm-10">@(Model.Sklad?.Name ?? "Není přiřazen")</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Upravit</a>
+    <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+</div>
+

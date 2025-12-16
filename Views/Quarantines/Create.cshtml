@@ -1,0 +1,35 @@
+@model DogShelterMvc.Models.Quarantine
+
+@{
+    ViewData["Title"] = "Přidat karanténu";
+}
+
+<h1>Přidat novou karanténu</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BeginOfDate" class="control-label">Datum začátku</label>
+                <input asp-for="BeginOfDate" class="form-control" type="datetime-local" />
+                <span asp-validation-for="BeginOfDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndOfDate" class="control-label">Datum konce</label>
+                <input asp-for="EndOfDate" class="form-control" type="datetime-local" />
+                <span asp-validation-for="EndOfDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Vytvořit" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

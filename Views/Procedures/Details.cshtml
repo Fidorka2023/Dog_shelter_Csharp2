@@ -1,0 +1,27 @@
+@model DogShelterMvc.Models.Procedure
+
+@{
+    ViewData["Title"] = "Detail procedury";
+}
+
+<h1>Detail procedury</h1>
+
+<div>
+    <h4>@Model.ProcName</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ID</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Id)</dd>
+        <dt class="col-sm-2">Název procedury</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.ProcName)</dd>
+        <dt class="col-sm-2">Popis</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.DescrName)</dd>
+        <dt class="col-sm-2">Zdravotní záznam ID</dt>
+        <dd class="col-sm-10">@(Model.ZdrZaznamid?.ToString() ?? "Není přiřazen")</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Upravit</a>
+    <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+</div>
+

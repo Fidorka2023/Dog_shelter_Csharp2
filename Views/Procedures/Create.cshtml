@@ -1,0 +1,41 @@
+@model DogShelterMvc.Models.Procedure
+
+@{
+    ViewData["Title"] = "Přidat proceduru";
+}
+
+<h1>Přidat novou proceduru</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProcName" class="control-label">Název procedury</label>
+                <input asp-for="ProcName" class="form-control" />
+                <span asp-validation-for="ProcName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DescrName" class="control-label">Popis</label>
+                <textarea asp-for="DescrName" class="form-control"></textarea>
+                <span asp-validation-for="DescrName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ZdrZaznamid" class="control-label">Zdravotní záznam</label>
+                <select asp-for="ZdrZaznamid" class="form-control" asp-items="ViewBag.ZdrZaznamid">
+                    <option value="">-- Vyberte záznam --</option>
+                </select>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Vytvořit" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

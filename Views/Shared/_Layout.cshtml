@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Útulek pro psy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-heart-pulse-fill text-primary me-2"></i>Útulek pro psy
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house-door me-1"></i>Domů
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Dogs" asp-action="Index">
+                                <i class="bi bi-heart me-1"></i>Psi
+                            </a>
+                        </li>
+                        @using DogShelterMvc.Helpers
+                        @if (Context.Session.GetString("UserId") != null && PermissionHelper.GetUserPerms(Context) >= 1)
+                        {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-grid-3x3-gap me-1"></i>Základní entity
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item" asp-controller="Dogs" asp-action="Index"><i class="bi bi-heart me-2"></i>Psi</a></li>
+                                <li><a class="dropdown-item" asp-controller="Owners" asp-action="Index"><i class="bi bi-people me-2"></i>Majitelé</a></li>
+                                <li><a class="dropdown-item" asp-controller="Addresses" asp-action="Index"><i class="bi bi-geo-alt me-2"></i>Adresy</a></li>
+                                <li><a class="dropdown-item" asp-controller="Shelters" asp-action="Index"><i class="bi bi-building me-2"></i>Útulky</a></li>
+                                <li><a class="dropdown-item" asp-controller="Pavilions" asp-action="Index"><i class="bi bi-house-door me-2"></i>Pavilony</a></li>
+                            </ul>
+                        </li>
+                        @if (Context.Session.GetString("UserId") != null && PermissionHelper.GetUserPerms(Context) >= 1)
+                        {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-heart-pulse me-1"></i>Zdravotní záznamy
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                <li><a class="dropdown-item" asp-controller="MedicalRecords" asp-action="Index"><i class="bi bi-file-medical me-2"></i>Zdravotní záznamy</a></li>
+                                <li><a class="dropdown-item" asp-controller="Procedures" asp-action="Index"><i class="bi bi-clipboard-pulse me-2"></i>Procedury</a></li>
+                                <li><a class="dropdown-item" asp-controller="Quarantines" asp-action="Index"><i class="bi bi-shield-exclamation me-2"></i>Karantény</a></li>
+                                <li><a class="dropdown-item" asp-controller="DogHistories" asp-action="Index"><i class="bi bi-clock-history me-2"></i>Historie psů</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-box-seam me-1"></i>Sklady a vybavení
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                                <li><a class="dropdown-item" asp-controller="Storages" asp-action="Index"><i class="bi bi-archive me-2"></i>Sklady</a></li>
+                                <li><a class="dropdown-item" asp-controller="Feeds" asp-action="Index"><i class="bi bi-bag me-2"></i>Krmivo</a></li>
+                                <li><a class="dropdown-item" asp-controller="Hracky" asp-action="Index"><i class="bi bi-balloon me-2"></i>Hračky</a></li>
+                                <li><a class="dropdown-item" asp-controller="MedicalEquipments" asp-action="Index"><i class="bi bi-tools me-2"></i>Lékařské vybavení</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots me-1"></i>Ostatní
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
+                                <li><a class="dropdown-item" asp-controller="Reservations" asp-action="Index"><i class="bi bi-calendar-check me-2"></i>Rezervace</a></li>
+                                <li><a class="dropdown-item" asp-controller="DogImages" asp-action="Index"><i class="bi bi-images me-2"></i>Obrázky psů</a></li>
+                                @if (PermissionHelper.IsAdmin(Context))
+                                {
+                                    <li><a class="dropdown-item" asp-controller="Users" asp-action="Index"><i class="bi bi-people-fill me-2"></i>Uživatelé</a></li>
+                                }
+                                @if (PermissionHelper.GetUserPerms(Context) >= 1)
+                                {
+                                    <li><a class="dropdown-item" asp-controller="Logs" asp-action="Index"><i class="bi bi-journal-text me-2"></i>Logy</a></li>
+                                }
+                            </ul>
+                        </li>
+                        }
+                        }
+                    </ul>
+                    <ul class="navbar-nav">
+                        @using DogShelterMvc.Helpers
+@if (Context.Session.GetString("UserId") != null)
+                        {
+                            var userPerms = PermissionHelper.GetUserPerms(Context);
+                            var isAdmin = PermissionHelper.IsAdmin(Context);
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @Context.Session.GetString("Username")
+                                    @if (isAdmin)
+                                    {
+                                        <span class="badge bg-danger ms-1">Admin</span>
+                                    }
+                                    else if (userPerms > 0)
+                                    {
+                                        <span class="badge bg-warning ms-1">Uživatel</span>
+                                    }
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><span class="dropdown-item-text">
+                                        @if (isAdmin)
+                                        {
+                                            <strong>Administrátor</strong>
+                                        }
+                                        else
+                                        {
+                                            <span>Uživatel (Oprávnění: @userPerms)</span>
+                                        }
+                                    </span></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    @if (isAdmin)
+                                    {
+                                        <li><a class="dropdown-item" asp-controller="Users" asp-action="Index"><i class="bi bi-person-gear me-2"></i>Správa uživatelů</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                    }
+                                    <li>
+                                        <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                            <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right me-2"></i>Odhlásit se</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i>Přihlásit se
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Útulek pro psy
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.21.0/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@4.0.0/dist/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

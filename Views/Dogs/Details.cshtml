@@ -1,0 +1,62 @@
+@using DogShelterMvc.Helpers
+@model DogShelterMvc.Models.Dog
+
+@{
+    ViewData["Title"] = "Detail psa";
+    var isLoggedIn = Context.Session.GetString("UserId") != null;
+    var canEdit = isLoggedIn && PermissionHelper.CanEdit(Context);
+}
+
+<h1>Detail psa</h1>
+
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Jméno</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Name)</dd>
+        <dt class="col-sm-2">Věk</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Age)</dd>
+        <dt class="col-sm-2">Barva srsti</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.BodyColor)</dd>
+        <dt class="col-sm-2">Datum přijetí</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.DatumPrijeti)</dd>
+        <dt class="col-sm-2">Důvod přijetí</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.DuvodPrijeti)</dd>
+        <dt class="col-sm-2">Stav psa</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.StavPes)</dd>
+        <dt class="col-sm-2">Útulek</dt>
+        <dd class="col-sm-10">@(Model.Utulek?.Name ?? "Není přiřazen")</dd>
+        <dt class="col-sm-2">Majitel</dt>
+        <dd class="col-sm-10">@(Model.Majitel != null ? $"{Model.Majitel.Name} {Model.Majitel.Surname}" : "Není přiřazen")</dd>
+        <dt class="col-sm-2">Karanténa</dt>
+        <dd class="col-sm-10">@(Model.Karantena != null ? $"{Model.Karantena.BeginOfDate:dd.MM.yyyy} - {Model.Karantena.EndOfDate:dd.MM.yyyy}" : "Není v karanténě")</dd>
+        <dt class="col-sm-2">Obrázek</dt>
+        <dd class="col-sm-10">
+            @if (Model.DogImage != null && Model.DogImage.ImageData != null)
+            {
+                <img src="@Url.Action("Image", "DogImages", new { id = Model.DogImage.Id })" 
+                     alt="@Model.DogImage.FileName" 
+                     class="img-thumbnail" 
+                     style="max-width: 300px; max-height: 300px;" />
+                <br />
+                <small class="text-muted">@Model.DogImage.FileName</small>
+            }
+            else
+            {
+                <span class="text-muted">Není přiřazen obrázek</span>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (canEdit)
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Upravit</a>
+        <a asp-controller="DogImages" asp-action="Create" asp-route-dogId="@Model.Id" class="btn btn-primary">
+            <i class="bi bi-image me-1"></i>@(Model.DogImage != null ? "Změnit obrázek" : "Přidat obrázek")
+        </a>
+    }
+    <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+</div>
+

@@ -1,0 +1,85 @@
+@using DogShelterMvc.Helpers
+@model IEnumerable<DogShelterMvc.Models.Dog>
+
+@{
+    ViewData["Title"] = "Psi";
+    var isLoggedIn = Context.Session.GetString("UserId") != null;
+    var canEdit = isLoggedIn && PermissionHelper.CanEdit(Context);
+    var canDelete = isLoggedIn && PermissionHelper.CanDelete(Context);
+}
+
+<h1>Psi</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (canEdit)
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Přidat nového psa</a>
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Obrázek</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Age)</th>
+            <th>@Html.DisplayNameFor(model => model.BodyColor)</th>
+            <th>@Html.DisplayNameFor(model => model.DatumPrijeti)</th>
+            <th>@Html.DisplayNameFor(model => model.StavPes)</th>
+            <th>@Html.DisplayNameFor(model => model.Utulek)</th>
+            <th>@Html.DisplayNameFor(model => model.Majitel)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td style="width: 100px;">
+                @if (item.DogImage != null && item.DogImage.ImageData != null && item.DogImage.ImageData.Length > 0)
+                {
+                    <img src="@Url.Action("Image", "DogImages", new { id = item.DogImage.Id })" 
+                         alt="@item.DogImage.FileName" 
+                         class="img-thumbnail" 
+                         style="max-width: 80px; max-height: 80px; width: 80px; height: 80px; object-fit: cover; border-radius: 4px; display: block;" 
+                         onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
+                    <span class="text-muted d-none" style="display: none !important; width: 80px; height: 80px; line-height: 80px; text-align: center; border: 1px solid #ddd; border-radius: 4px;">
+                        <i class="bi bi-image" style="font-size: 2rem;"></i>
+                    </span>
+                }
+                else
+                {
+                    <span class="text-muted d-inline-block" title="Žádný obrázek" style="width: 80px; height: 80px; line-height: 80px; text-align: center; border: 1px solid #ddd; border-radius: 4px; background-color: #f8f9fa;">
+                        <i class="bi bi-image" style="font-size: 2rem;"></i>
+                    </span>
+                }
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Age)</td>
+            <td>@Html.DisplayFor(modelItem => item.BodyColor)</td>
+            <td>@Html.DisplayFor(modelItem => item.DatumPrijeti)</td>
+            <td>@Html.DisplayFor(modelItem => item.StavPes)</td>
+            <td>@(item.Utulek?.Name ?? "Není přiřazen")</td>
+            <td>@(item.Majitel != null ? $"{item.Majitel.Name} {item.Majitel.Surname}" : "")</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detail</a>
+                @if (canEdit)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Upravit</a>
+                }
+                @if (canDelete)
+                {
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Smazat</a>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+

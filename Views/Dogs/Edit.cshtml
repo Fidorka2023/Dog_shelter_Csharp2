@@ -1,0 +1,68 @@
+@model DogShelterMvc.Models.Dog
+
+@{
+    ViewData["Title"] = "Upravit psa";
+}
+
+<h1>Upravit psa</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Jméno</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label">Věk</label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BodyColor" class="control-label">Barva srsti</label>
+                <input asp-for="BodyColor" class="form-control" />
+                <span asp-validation-for="BodyColor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatumPrijeti" class="control-label">Datum přijetí</label>
+                <input asp-for="DatumPrijeti" class="form-control" type="date" />
+                <span asp-validation-for="DatumPrijeti" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DuvodPrijeti" class="control-label">Důvod přijetí</label>
+                <input asp-for="DuvodPrijeti" class="form-control" />
+                <span asp-validation-for="DuvodPrijeti" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StavPes" class="control-label">Stav psa</label>
+                <input asp-for="StavPes" class="form-control" />
+                <span asp-validation-for="StavPes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UtulekId" class="control-label">Útulek</label>
+                <select asp-for="UtulekId" class="form-control" asp-items="ViewBag.UtulekId">
+                    <option value="">-- Vyberte útulek --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="MajitelId" class="control-label">Majitel</label>
+                <select asp-for="MajitelId" class="form-control" asp-items="ViewBag.MajitelId">
+                    <option value="">-- Vyberte majitele --</option>
+                </select>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Uložit" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

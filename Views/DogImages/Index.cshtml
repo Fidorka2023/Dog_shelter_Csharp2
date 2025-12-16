@@ -1,0 +1,55 @@
+@model IEnumerable<DogShelterMvc.Models.DogImage>
+
+@{
+    ViewData["Title"] = "Obrázky psů";
+}
+
+<h1>Obrázky psů</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i>Přidat nový obrázek
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.FileName)</th>
+            <th>Náhled</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+            <td>@Html.DisplayFor(modelItem => item.FileName)</td>
+            <td>
+                @if (item.ImageData != null)
+                {
+                    <img src="@Url.Action("Image", "DogImages", new { id = item.Id })" alt="@item.FileName" style="max-width: 100px; max-height: 100px;" />
+                }
+                else
+                {
+                    <span>Žádný obrázek</span>
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Upravit</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detail</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Smazat</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+

@@ -1,0 +1,31 @@
+@model DogShelterMvc.Models.DogImage
+
+@{
+    ViewData["Title"] = "Smazat obrázek";
+}
+
+<h1>Smazat obrázek</h1>
+
+<h3>Jste si jisti, že chcete smazat tento obrázek?</h3>
+<div>
+    <h4>@Model.FileName</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Název souboru</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.FileName)</dd>
+        <dt class="col-sm-2">Obrázek</dt>
+        <dd class="col-sm-10">
+            @if (Model.ImageData != null)
+            {
+                <img src="@Url.Action("Image", "DogImages", new { id = Model.Id })" alt="@Model.FileName" style="max-width: 200px; max-height: 200px;" />
+            }
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Smazat" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+    </form>
+</div>
+
