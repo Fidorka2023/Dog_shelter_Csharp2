@@ -73,7 +73,7 @@ namespace DogShelterMvc.Controllers
         // POST: Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(string username, string password, ulong perms = 0)
+        public async Task<IActionResult> Register(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
@@ -92,7 +92,7 @@ namespace DogShelterMvc.Controllers
             {
                 Uname = username,
                 Hash = PasswordHelper.HashPassword(password),
-                Perms = perms
+                Perms = 0  // Výchozí oprávnění - uživatel nemůže nastavit při registraci
             };
 
             _context.Add(user);
